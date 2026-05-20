@@ -15,16 +15,36 @@ const GAMES = [
   { id: 'game2', title: 'Game 2', meta: 'Micro-game' }
 ];
 
-function renderApp() {
-  const root = document.getElementById('app-root');
-  root.innerHTML = '';
+function renderApps(container) {
+  const frame = document.createElement('div');
+  frame.id = 'app-frame-container';
+  frame.className = 'iframe-container';
+if (AppState.currentSurface === 'apps') renderApps(content);
 
-  const header = document.createElement('div');
-  header.className = 'header';
-  header.innerHTML = `
-    <div>Portal v1.1</div>
-    <div>Status: ${AppState.system.status}</div>
-  `;
+  const list = document.createElement('div');
+
+  const APPS = [
+    { id: 'chess', title: 'Chess App' },
+    { id: 'sports', title: 'Sports App' },
+    { id: 'notes', title: 'Notes App' }
+  ];
+
+  APPS.forEach(app => {
+    const item = document.createElement('div');
+    item.textContent = app.title;
+    item.onclick = () => import('./router.js').then(m => {
+      m.setSurface('apps');
+      AppState.currentAppId = app.id;
+      import('./appLoader.js').then(loader => loader.loadAppIntoFrame(app.id));
+    });
+    list.appendChild(item);
+  });
+
+  container.appendChild(list);
+  container.appendChild(frame);
+}
+
+
 
   const main = document.createElement('div');
   main.className = 'main';
