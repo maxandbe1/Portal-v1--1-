@@ -3,10 +3,12 @@ import { loadGameIntoFrame } from './gameLoader.js';
 import { triggerMonetization } from './hook.js';
 
 const SURFACES = [
+  { id: 'apps', label: 'Apps' },
   { id: 'games', label: 'Micro-Games' },
   { id: 'tools', label: 'Tools' },
   { id: 'intel', label: 'Intelligence' }
 ];
+
 
 const GAMES = [
   { id: 'game1', title: 'Game 1', meta: 'Micro-game' },
